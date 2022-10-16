@@ -74,10 +74,7 @@
 
       editorElement.addEventListener('exported', (evt) => {
         const exports = evt.detail.exports;
-
-        //send to react native text
-        window.ReactNativeWebView.postMessage(cleanLatex(exports['application/x-latex']));
-
+        
         if (exports && exports['application/x-latex']) {
           katex.render(cleanLatex(exports['application/x-latex']),  resultElement);
           convertElement.disabled = false;
@@ -86,6 +83,7 @@
           convertElement.disabled = true;
           resultElement.innerHTML = '';
         }
+        window.ReactNativeWebView.postMessage(cleanLatex(exports['application/x-latex']));
       });
       undoElement.addEventListener('click', () => {
         editorElement.editor.undo();
